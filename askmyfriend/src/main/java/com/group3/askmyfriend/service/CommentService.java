@@ -46,4 +46,10 @@ public class CommentService {
         PostEntity post = postRepository.findById(postId).orElseThrow();
         return commentRepository.findByPost(post);
     }
+ // CommentService.java에 추가
+    public CommentEntity findById(Long commentId) {
+        return commentRepository.findById(commentId)
+            .orElseThrow(() -> new IllegalArgumentException("Comment not found with id: " + commentId));
+    }
+
 }

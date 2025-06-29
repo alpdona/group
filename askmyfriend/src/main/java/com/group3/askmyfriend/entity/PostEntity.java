@@ -1,9 +1,10 @@
 package com.group3.askmyfriend.entity;
 
-import jakarta.persistence.*; // 👈 이 줄 추가
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
 @Table(name = "posts")
 public class PostEntity {
@@ -17,10 +18,22 @@ public class PostEntity {
     private String platform;
     private String accessibility;
     private String imagePath;
+
+    // 새로 추가된 비디오 경로 필드
+    private String videoPath;
+
     private int likeCount;
+    
+    @Column(nullable = false)
+    private boolean shortForm = false;
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
+
+    // 🔥 추가: 작성자 관계
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private UserEntity author;
 
     @PrePersist
     protected void onCreate() {
@@ -58,6 +71,10 @@ public class PostEntity {
     public String getImagePath() { return imagePath; }
     public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
+    // videoPath 필드 Getter/Setter
+    public String getVideoPath() { return videoPath; }
+    public void setVideoPath(String videoPath) { this.videoPath = videoPath; }
+
     public int getLikeCount() { return likeCount; }
     public void setLikeCount(int likeCount) { this.likeCount = likeCount; }
 
@@ -71,4 +88,11 @@ public class PostEntity {
 
     public int getCommentCount() { return commentCount; }
     public void setCommentCount(int commentCount) { this.commentCount = commentCount; }
+    
+    public boolean isShortForm() { return shortForm; }
+    public void setShortForm(boolean shortForm) { this.shortForm = shortForm; }
+
+    // 🔥 추가: 작성자 관계 Getter/Setter
+    public UserEntity getAuthor() { return author; }
+    public void setAuthor(UserEntity author) { this.author = author; }
 }

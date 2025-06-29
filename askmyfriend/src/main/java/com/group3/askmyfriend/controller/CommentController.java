@@ -17,6 +17,6 @@ public class CommentController {
                                  @RequestParam String content,
                                  @RequestParam String authorEmail) {
         commentService.addComment(postId, content, authorEmail);
-        return "redirect:/index"; // 댓글 작성 후 메인(index.html)으로 리다이렉트
+        return "redirect:/posts"; // 댓글 작성 후 메인(index.html)으로 리다이렉트
     }
 }

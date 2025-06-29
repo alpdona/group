@@ -91,20 +91,12 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
-    }
-    
-    .submit-btn {
-      padding: 10px 5px;
-      font-size: 16px;
-      background-color: #4f46e5;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      margin-right: 8px;
     }
 
     input[type="file"] {
       margin-top: 12px;
+      display: block;
     }
   </style>
 </head>
@@ -117,7 +109,7 @@
 
     <div class="form-area">
       <form th:action="@{/posts}" method="post" enctype="multipart/form-data" th:object="${postDto}">
-        <textarea th:field="*{content}" maxlength="5000" placeholder="내용을 입력하세요..."></textarea>
+        <textarea th:field="*{content}" maxlength="5000" placeholder="내용을 입력하세요... (숏폼 설명으로도 사용됩니다)"></textarea>
 
         <div class="dropdown">
           <div class="dropdown-toggle" onclick="toggleDropdown()">공개 범위 선택 ▼</div>
@@ -129,7 +121,19 @@
           <input type="hidden" th:field="*{visibility}" id="visibilityField">
         </div>
 
+        <!-- 이미지 업로드 -->
+        <label>이미지 업로드</label>
         <input type="file" name="imageFile" accept="image/*" onchange="previewImage(this)">
+
+        <!-- 비디오 업로드 -->
+        <label>비디오 업로드</label>
+        <input type="file" name="videoFile" accept="video/*">
+        
+        <label>
+  <input type="checkbox" name="shortForm" th:field="*{shortForm}" />
+  숏폼으로 올리기
+</label>
+
         <button type="submit" class="submit-btn">공유하기</button>
         <button type="submit" class="submit-btn">글쓰기</button>
       </form>
